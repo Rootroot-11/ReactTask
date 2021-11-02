@@ -4,8 +4,10 @@ import React, {
     useState,
     useMemo,
 } from 'react';
-
-import {Observable, Subject} from 'rxjs';
+import {
+    Observable,
+    Subject
+} from 'rxjs';
 import {
     map,
     buffer,
@@ -14,8 +16,7 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {Controls} from './components/controls'
-
+import { Controls } from './components/controls';
 
 const App = () => {
     const [state, setState] = useState('stop');
@@ -62,7 +63,7 @@ const App = () => {
             };
         });
 
-        const subscribtion$ = timer$
+        const subscription$ = timer$
             .pipe(takeUntil(doubleClick$))
             .pipe(takeUntil(stop$))
             .subscribe({
@@ -74,7 +75,7 @@ const App = () => {
             });
 
         return (() => {
-            subscribtion$.unsubscribe();
+            subscription$.unsubscribe();
         });
     }, [state]);
 
